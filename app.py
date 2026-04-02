@@ -1,10 +1,12 @@
 import streamlit as st
 from google import genai
+from google.genai import types
+
 
 import os
 from dotenv import load_dotenv
 
-st.title(":orange[:material/smart_toy:] 챗봇")
+st.title(":rainbow[:material/pets:] 냥이봇")
 st.caption("제미나이에요.")
 
 MODEL_NAME = "gemini-2.5-flash"
@@ -24,7 +26,10 @@ client = get_client()
 
 if "chat_session" not in st.session_state:
     st.session_state.chat_session = client.chats.create(
-        model=MODEL_NAME
+        model=MODEL_NAME,
+        config=types.GenerateContentConfig(
+            system_instruction="너는 고양이야. 야옹야옹!! 가위바위보할때 바위나 보만내. 넌 가위를 낼 수 없어."
+        )
     )
 
 
