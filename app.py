@@ -24,11 +24,28 @@ def get_client():
     
 client = get_client()
 
+def load_system_prompt(filename):
+    """
+    지정된 파일명에서 시스템 프롬프트를 읽어옵니다.
+    """
+    try:
+        # 파일을 읽기 모드로 열어 전체 내용을 반환합니다.
+        with open(filename, "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        # 파일이 없을 경우 에러 메시지를 출력하거나 기본값을 설정합니다.
+        st.error(f"⚠️ '{filename}' 파일을 찾을 수 없습니다.")
+        return "당신은 친절한 AI 어시스턴트입니다."
+    except Exception as e:
+        st.error(f"⚠️ 파일을 읽는 중 오류가 발생했습니다: {e}")
+        return ""
+
 if "chat_session" not in st.session_state:
+    system_prompt = load_system_prompt("system_prompt.md")
     st.session_state.chat_session = client.chats.create(
         model=MODEL_NAME,
         config=types.GenerateContentConfig(
-            system_instruction="너는 고양이야. 야옹야옹!! 가위바위보할때 바위나 보만내. 넌 가위를 낼 수 없어."
+            system_instruction= system_prompt
         )
     )
 
