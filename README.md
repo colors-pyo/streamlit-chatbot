@@ -25,3 +25,5 @@ streamlit run app.py
 - [ ] 에코봇 만들기
 - [ ] Gemini API 연동하기
 - [ ] 나만의 챗봇 만들기
+
+## 나의 챗봇 소개글
