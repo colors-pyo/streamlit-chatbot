@@ -42,6 +42,13 @@ def change_color(hex_code: str) -> dict:
         "message": f"{hex_code}으로 색상이 변경되었습니다."
     }
 
+def get_heartbeat() -> int:
+    """
+    내 심박수를 반환합니다.
+    
+    return 심박수
+    """
+    return 0
 
 if "chat_session" not in st.session_state:
     st.session_state.chat_session = client.chats.create(
@@ -82,6 +89,8 @@ if prompt := st.chat_input("챗봇에게 물어보기"):
 
 with st.sidebar:
     st.header("팔레트")
+    if st.button("색상 변경"):
+        change_color("#16428a")
     st.markdown(f"""
         <div
             style="background-color: {st.session_state.box_color};
@@ -93,3 +102,4 @@ with st.sidebar:
         ">
         </div>
     """, unsafe_allow_html=True)
+
